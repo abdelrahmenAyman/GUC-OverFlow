@@ -2,7 +2,7 @@ import datetime
 
 from django.test import TestCase
 
-from ..factories import GucianFactory
+from users.factories import GucianFactory
 
 
 class GucianTestSuite(TestCase):
