@@ -5,5 +5,7 @@ from users import views
 urlpatterns = [
     path('signup', views.SignUpView.as_view(), name='signup'),
     path('change-password', views.ChangePasswordView.as_view(),
-         name='change-password')
+         name='change-password'),
+    path('forget-password', views.ForgetPasswordView.as_view(),
+         name='forget-password')
 ]
