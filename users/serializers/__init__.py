@@ -1,1 +1,2 @@
 from .signup_serializer import SignUpSerializer
+from .change_password_serializer import ChangePasswordSerializer
