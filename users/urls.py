@@ -7,5 +7,7 @@ urlpatterns = [
     path('change-password', views.ChangePasswordView.as_view(),
          name='change-password'),
     path('forget-password', views.ForgetPasswordView.as_view(),
-         name='forget-password')
+         name='forget-password'),
+    path('reset-password/<int:pk>', views.ResetPasswordView.as_view(),
+         name='reset-password')
 ]
