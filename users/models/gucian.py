@@ -22,7 +22,7 @@ class Gucian(models.Model):
     major = models.CharField(max_length=50)
     dash_number = models.IntegerField(default=0)
     birthdate = models.DateField()
-    bio = models.CharField(max_length=350)
+    bio = models.CharField(max_length=350, default='')
     reputation = models.IntegerField(default=1)
     joined_at = models.DateField(auto_now_add=True)
 
