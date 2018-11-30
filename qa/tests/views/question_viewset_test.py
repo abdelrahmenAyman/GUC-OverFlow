@@ -195,3 +195,41 @@ class QuestionUpdateViewTestSuite(BaseQuestionTestSuite):
         self.assertEqual(200, response.status_code)
         self.assertNotEqual(
             self.update_data['down_votes'], self.questions[0].down_votes)
+
+
+class QuestionVotingViewsTestSuite(BaseQuestionTestSuite):
+
+    def setUp(self):
+        super().setUp()
+        self.up_vote_path = reverse(
+            'question-up-vote', kwargs={'pk': self.questions[0].pk})
+        self.down_vote_path = reverse(
+            'question-down-vote', kwargs={'pk': self.questions[0].pk})
+
+    def test_up_vote_non_existing_question(self):
+        non_existing_path = reverse('question-up-vote', kwargs={'pk': 100})
+        response = self.client.get(non_existing_path)
+
+        self.assertEqual(404, response.status_code)
+
+    def test_up_vote_question(self):
+        old_up_votes_count = self.questions[0].up_votes
+        response = self.client.get(self.up_vote_path)
+        self.questions[0].refresh_from_db()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(old_up_votes_count + 1, self.questions[0].up_votes)
+
+    def test_down_vote_non_existing_question(self):
+        non_existing_path = reverse('question-down-vote', kwargs={'pk': 100})
+        response = self.client.get(non_existing_path)
+
+        self.assertEqual(404, response.status_code)
+
+    def test_down_vote_question(self):
+        old_down_votes_count = self.questions[0].down_votes
+        response = self.client.get(self.down_vote_path)
+        self.questions[0].refresh_from_db()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(old_down_votes_count + 1, self.questions[0].down_votes)
