@@ -16,6 +16,7 @@ class Answer(models.Model):
         null=True,
         on_delete=models.SET_NULL)
 
+    created_at = models.DateTimeField(auto_now_add=True)
     text = models.CharField(max_length=30000)
     up_votes = models.IntegerField()
     down_votes = models.IntegerField()
