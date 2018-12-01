@@ -19,7 +19,7 @@ class Answer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     text = models.CharField(max_length=30000)
     up_votes = models.IntegerField(default=1)
-    down_votes = models.IntegerField(default=1)
+    down_votes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.text
