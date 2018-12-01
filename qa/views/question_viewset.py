@@ -36,6 +36,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
         """performs an up vote on the specified question."""
         question = get_object_or_404(klass=Question, pk=pk)
         question.up_vote()
+
         return Response('Up vote successfull')
 
     @action(methods=['GET'], detail=True, url_path='down-vote')
@@ -43,4 +44,5 @@ class QuestionViewSet(viewsets.ModelViewSet):
         """performs an down vote on the specified question."""
         question = get_object_or_404(klass=Question, pk=pk)
         question.down_vote()
+
         return Response('Down vote successfull')
