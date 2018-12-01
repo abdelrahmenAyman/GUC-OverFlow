@@ -9,3 +9,4 @@ class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
         fields = ('pk', 'created_at', 'question', 'text', 'votes', 'answerer')
+        read_only_fields = ('answerer',)
