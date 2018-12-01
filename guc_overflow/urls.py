@@ -20,9 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('rest_framework.urls')),
     path('accounts/', include('users.urls')),
-<<<<<<< HEAD
     path('', include('polls.urls'))
-=======
-    path('', include('qa.urls'))
->>>>>>> 317f3908ef689b960217729740c945d6b35ac0b5
 ]
