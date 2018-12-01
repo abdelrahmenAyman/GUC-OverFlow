@@ -23,7 +23,7 @@ class Question(models.Model):
     title = models.CharField(max_length=150)
     text = models.CharField(max_length=30000)
     up_votes = models.IntegerField(default=1)
-    down_votes = models.IntegerField(default=1)
+    down_votes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title

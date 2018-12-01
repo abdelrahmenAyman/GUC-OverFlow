@@ -232,4 +232,5 @@ class QuestionVotingViewsTestSuite(BaseQuestionTestSuite):
         self.questions[0].refresh_from_db()
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(old_down_votes_count + 1, self.questions[0].down_votes)
+        self.assertEqual(old_down_votes_count + 1,
+                         self.questions[0].down_votes)
