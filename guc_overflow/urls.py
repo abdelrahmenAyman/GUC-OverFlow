@@ -25,4 +25,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('accounts/', include('rest_framework.urls')),
     path('accounts/', include('users.urls')),
+    path('', include('polls.urls'))
 ]
