@@ -2,6 +2,8 @@ import datetime
 
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
+from django.conf import settings
 
 User = get_user_model()
 
@@ -20,7 +22,7 @@ class Gucian(models.Model):
     major = models.CharField(max_length=50)
     dash_number = models.IntegerField(default=0)
     birthdate = models.DateField()
-    bio = models.CharField(max_length=350)
+    bio = models.CharField(max_length=350, default='')
     reputation = models.IntegerField(default=1)
     joined_at = models.DateField(auto_now_add=True)
 
@@ -35,3 +37,20 @@ class Gucian(models.Model):
     def age(self):
         today = datetime.datetime.now()
         return today.year - self.birthdate.year
+
+    def send_forget_password_mail(self, domain):
+        """
+        Sends a mail including url that contains a link to reset password.
+
+        Author: Abdelrahmen Ayman
+        """
+        message = f'{domain}/reset-password/?token={self.pk}'
+        subject = 'Shipper Forgot Password'
+        receivers = [self.user.email]
+
+        send_mail(
+            subject=subject,
+            message=message,
+            recipient_list=receivers,
+            from_email=settings.EMAIL_HOST_USER
+        )
