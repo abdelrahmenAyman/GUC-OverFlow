@@ -206,6 +206,9 @@ class QuestionVotingViewsTestSuite(BaseQuestionTestSuite):
         self.down_vote_path = reverse(
             'question-down-vote', kwargs={'pk': self.questions[0].pk})
 
+        self.client.logout()
+        self.client.force_login(self.questions[1].asker.user)
+
     def test_up_vote_non_existing_question(self):
         non_existing_path = reverse('question-up-vote', kwargs={'pk': 100})
         response = self.client.get(non_existing_path)
@@ -234,3 +237,30 @@ class QuestionVotingViewsTestSuite(BaseQuestionTestSuite):
         self.assertEqual(200, response.status_code)
         self.assertEqual(old_down_votes_count + 1,
                          self.questions[0].down_votes)
+
+    def test_increase_question_asker_reputation_on_a_up_vote(self):
+        reputation_before_vote = self.questions[0].asker.reputation
+        response = self.client.get(self.up_vote_path)
+        self.questions[0].asker.refresh_from_db()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(reputation_before_vote + 5,
+                         self.questions[0].asker.reputation)
+
+    def test_decrease_question_asker_reputation_on_a_down_vote(self):
+        reputation_before_vote = self.questions[0].asker.reputation
+        response = self.client.get(self.down_vote_path)
+        self.questions[0].asker.refresh_from_db()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(reputation_before_vote - 1,
+                         self.questions[0].asker.reputation)
+
+    def test_down_voter_loses_reputation(self):
+        reputation_before_voting = self.questions[1].asker.reputation
+        response = self.client.get(self.down_vote_path)
+        self.questions[1].asker.refresh_from_db()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(reputation_before_voting - 1,
+                         self.questions[1].asker.reputation)
