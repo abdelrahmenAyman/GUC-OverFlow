@@ -10,7 +10,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ('created_at', 'course', 'asker',
+        fields = ('pk', 'created_at', 'course', 'asker',
                   'title', 'text', 'votes', 'answers')
         read_only_fields = ('asker', 'created_at')
 
