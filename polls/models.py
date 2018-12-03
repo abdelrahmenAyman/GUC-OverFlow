@@ -29,7 +29,7 @@ class Choice(models.Model):
         related_name='choices'
     )
     choice = models.CharField(max_length=200)
-    votes = models.IntegerField()
+    votes = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.question
