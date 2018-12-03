@@ -20,6 +20,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('rest_framework.urls')),
     path('accounts/', include('users.urls')),
+<<<<<<< HEAD
     path('', include('qa.urls')),
     path('', include('polls.urls'))
+=======
+    path('', include('qa.urls'))
+>>>>>>> b8aa6efe9b98ec938aa49e5e6a0a2594daac5b20
 ]

@@ -31,7 +31,10 @@ class AnswerViewSet(viewsets.GenericViewSet,
         """performs an up vote on the specified answer."""
         answer = get_object_or_404(klass=Answer, pk=pk)
         answer.up_vote()
+<<<<<<< HEAD
         answer.answerer.increase_reputation(amount=5)
+=======
+>>>>>>> b8aa6efe9b98ec938aa49e5e6a0a2594daac5b20
 
         return Response('Up Vote Successful')
 
@@ -39,10 +42,15 @@ class AnswerViewSet(viewsets.GenericViewSet,
     def down_vote(self, request, pk=None):
         """performs a down vote on the specified answer."""
         answer = get_object_or_404(klass=Answer, pk=pk)
+<<<<<<< HEAD
         answer.answerer.decrease_reputation(amount=1)
         answer.down_vote()
 
         down_voter = Gucian.objects.get(user=request.user)
         down_voter.decrease_reputation(amount=1)
 
+=======
+        answer.down_vote()
+
+>>>>>>> b8aa6efe9b98ec938aa49e5e6a0a2594daac5b20
         return Response('Down Vote Successful')
