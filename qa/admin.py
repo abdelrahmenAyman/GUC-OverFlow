@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Gucian
+
+from .models import Course
 
 # Register your models here.
-admin.site.register(Gucian)
+admin.site.register(Course)
