@@ -25,3 +25,21 @@ class GucianTestSuite(TestCase):
 
     def test_string_representation(self):
         self.assertEqual(self.gucian.name, str(self.gucian))
+
+    def test_increase_reputation(self):
+        """Tests the mechanism of increasing reputation"""
+        reputation_before_increasing = self.gucian.reputation
+        self.gucian.increase_reputation(amount=5)
+        self.gucian.refresh_from_db()
+
+        self.assertEqual(reputation_before_increasing +
+                         5, self.gucian.reputation)
+
+    def test_decrease_reputation(self):
+        """Tests the mechanism of decreasing reputation"""
+        reputation_before_increasing = self.gucian.reputation
+        self.gucian.decrease_reputation(amount=1)
+        self.gucian.refresh_from_db()
+
+        self.assertEqual(reputation_before_increasing -
+                         1, self.gucian.reputation)

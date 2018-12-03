@@ -54,3 +54,11 @@ class Gucian(models.Model):
             recipient_list=receivers,
             from_email=settings.EMAIL_HOST_USER
         )
+
+    def increase_reputation(self, amount):
+        self.reputation += amount
+        self.save()
+
+    def decrease_reputation(self, amount):
+        self.reputation -= amount
+        self.save()
