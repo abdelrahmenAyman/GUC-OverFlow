@@ -6,9 +6,8 @@ from polls import views
 
 
 router = DefaultRouter()
-router.register('', views.PollsView)
+router.register('polls', views.PollsView, basename='poll')
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('polls', views.PollsView.as_view(), name='polls')
+    path('', include(router.urls))
 ]

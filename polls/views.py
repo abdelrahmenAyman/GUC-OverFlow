@@ -1,19 +1,18 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from rest_framework import mixins
+from rest_framework import permissions
 
-from rest_framework.generics import CreateAPIView
-from rest_framework.response import Response
+from .serializers import PollSerializer
+from .models import Poll
+from users.models import Gucian
 
-from ..serializers import PollsSerializer
 
+class PollsView(viewsets.GenericViewSet,
+                mixins.CreateModelMixin):
+    serializer_class = PollSerializer
+    queryset = Poll.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-class PollsView(CreateAPIView):
-    serializer_class = PollsSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response(data={'detail': 'You created poll successfully'})
-
-# Create your views here.
+    def perform_create(self, serializer):
+        gucian = Gucian.objects.get(user=self.request.user)
+        serializer.save(gucian=gucian)
